@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Pomodoro Clock</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row d-flex justify-content-center mt-5">
+      <h1>5</h1>
+    </div>
+    <div class="row d-flex justify-content-center mt-2">
+      <button id="timer" class="btn btn-primary mx-2" onclick="timer()">start</button>
+      <button id="reset" class="btn btn-secondary mx-2" onclick="reset()">reset</button>
+    </div>
+    <div class="row d-flex justify-content-center mt-5">
+      <h4 class="mx-2">Timer </h4>
+      <button id="decreaseTimer" class="btn btn-danger" onclick="decreaseTimer()">-</button>
+      <button id="increaseTimer" class="btn btn-success" onclick="increaseTimer()">+</button>
+      <h4 id="time" class="mx-2">5 </h4>
+    </div>
+    <div class="row d-flex justify-content-center mt-5">
+      <h4 class="mx-2">Break </h4>
+      <button id="decreaseBreak" class="btn btn-danger" onclick="decreaseBreak()">-</button>
+      <button id="increaseBreak" class="btn btn-success" onclick="increaseBreak()">+</button>
+      <h4 id="breakTime" class="mx-2">2 </h4>
+    </div>
+    <div class="row d-flex justify-content-center mt-5">
+      <h4 class="mx-2">Long Break </h4>
+      <button id="decreaseLongBreak" class="btn btn-danger" onclick="decreaseLongBreak()">-</button>
+      <button id="increaseLongBreak" class="btn btn-success" onclick="increaseLongBreak()">+</button>
+      <h4 id="longBreakTime" class="mx-2">5 </h4>
+    </div>
+    <div class="row d-flex justify-content-center mt-5">
+      <h4 class="mx-2">Pomodoros </h4>
+      <button id="decreasePomodoros" class="btn btn-danger" onclick="decreasePomodoros()">-</button>
+      <button id="increasePomodoros" class="btn btn-success" onclick="increasePomodoros()">+</button>
+      <h4 id="pomodoros" class="mx-2">4 </h4>
+    </div>
+    <div class="row d-flex justify-content-center mt-5">
+      <h2></h2>
+    </div>
+    <div class="row d-flex justify-content-center mt-5">
+      <h3 id="checks"></h3>
+    </div>
+    </div>
+  </div>
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.5/howler.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
