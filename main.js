@@ -101,7 +101,7 @@ function reset() {
   $('#wind').get(0).play();
   $("#tomato").replaceWith($("#tomato").clone(true));
   $("#tomato").css({"animation-timing-function": "cubic-bezier(0.39, 0.23, 0.43, 0.96)", "animation-name": "wind", "animation-duration": 1.4 + "s", "animation-play-state": "running"});
-  $('h2').text("");
+  $('h2').text("Pomodoro Clock");
   $("#timer").text("start");
   setTimeout(function(){
     $("#tomato").css("animation-play-state", "paused");
