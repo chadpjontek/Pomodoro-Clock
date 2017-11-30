@@ -15,60 +15,64 @@
 
 <body>
   <div class="container">
-    <div class="row d-flex justify-content-center mt-5">
+    <div class="row d-flex justify-content-center">
+      <button id="timer" class="btn btn-success" onclick="timer()">start</button>
       <h1>5</h1>
+      <button id="reset" class="btn btn-danger" onclick="reset()">reset</button>
     </div>
-    <div class="row d-flex justify-content-center mt-2">
-      <button id="timer" class="btn btn-primary mx-2" onclick="timer()">start</button>
-      <button id="reset" class="btn btn-secondary mx-2" onclick="reset()">reset</button>
+    <div class="row d-flex justify-content-center" id="tomato" onclick="timer()">
+      <span id="pointer"></span>
+      <span id="tl-quarter">
+        <span id="tl-seed1"></span>
+        <span id="tl-seed2"></span>
+        <span id="tl-seed3"></span>
+      </span>
+      <span id="tr-quarter">
+        <span id="tr-seed1"></span>
+        <span id="tr-seed2"></span>
+        <span id="tr-seed3"></span>
+      </span>
+      <span id="br-quarter">
+        <span id="br-seed1"></span>
+        <span id="br-seed2"></span>
+        <span id="br-seed3"></span>
+      </span>
+      <span id="bl-quarter">
+        <span id="bl-seed1"></span>
+        <span id="bl-seed2"></span>
+        <span id="bl-seed3"></span>
+      </span>
     </div>
-    <div class="row d-flex justify-content-center mt-5">
-      <h4 class="mx-2">Timer </h4>
+    <div class="row d-flex justify-content-center timer">
+      <div class="mx-2">Timer </div>
       <button id="decreaseTimer" class="btn btn-danger" onclick="decreaseTimer()">-</button>
       <button id="increaseTimer" class="btn btn-success" onclick="increaseTimer()">+</button>
-      <h4 id="time" class="mx-2">5 </h4>
+      <div id="time" class="mx-2">5 </div>
     </div>
-    <div class="row d-flex justify-content-center mt-5">
-      <h4 class="mx-2">Break </h4>
+    <div class="row d-flex justify-content-center short">
+      <div class="mx-2">Break </div>
       <button id="decreaseBreak" class="btn btn-danger" onclick="decreaseBreak()">-</button>
       <button id="increaseBreak" class="btn btn-success" onclick="increaseBreak()">+</button>
-      <h4 id="breakTime" class="mx-2">2 </h4>
+      <div id="breakTime" class="mx-2">2 </div>
     </div>
-    <div class="row d-flex justify-content-center mt-5">
-      <h4 class="mx-2">Long Break </h4>
+    <div class="row d-flex justify-content-center long">
+      <div class="mx-2">Long Break </div>
       <button id="decreaseLongBreak" class="btn btn-danger" onclick="decreaseLongBreak()">-</button>
       <button id="increaseLongBreak" class="btn btn-success" onclick="increaseLongBreak()">+</button>
-      <h4 id="longBreakTime" class="mx-2">5 </h4>
+      <div id="longBreakTime" class="mx-2">5 </div>
     </div>
-    <div class="row d-flex justify-content-center mt-5">
-      <h4 class="mx-2">Pomodoros </h4>
+    <div class="row d-flex justify-content-center pomo">
+      <div class="mx-2">Pomodoros </div>
       <button id="decreasePomodoros" class="btn btn-danger" onclick="decreasePomodoros()">-</button>
       <button id="increasePomodoros" class="btn btn-success" onclick="increasePomodoros()">+</button>
-      <h4 id="pomodoros" class="mx-2">4 </h4>
+      <div id="pomodoros" class="mx-2">4 </div>
     </div>
-    <div class="row d-flex justify-content-center mt-5">
+    <div class="row d-flex justify-content-center message">
       <h2></h2>
     </div>
-    <div class="row d-flex justify-content-center mt-5">
+    <div class="row d-flex justify-content-center checks">
       <h3 id="checks"></h3>
     </div>
-    <div class="row d-flex justify-content-center mt-5">
-      <h3 id="tomato">
-        <span id="tl-quarter">
-          <span id="tl-seed1"></span>
-          <span id="tl-seed2"></span>
-          <span id="tl-seed3"></span>
-        </span>
-        <span id="tr-quarter">
-          <span id="tr-seed1"></span>
-          <span id="tr-seed2"></span>
-          <span id="tr-seed3"></span>
-        </span>
-        <span id="br-quarter"></span>
-        <span id="bl-quarter"></span>
-      </h3>
-    </div>
-
   </div>
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.5/howler.js"></script>

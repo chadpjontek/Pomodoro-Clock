@@ -15,6 +15,7 @@ function timer() {
   if ($("#timer").text() === "start") {
     $('h2').text("GO!");
     seconds = timerTime;
+   
     start();
   } else if ($("#timer").text() === "resume") {
     $('h2').text("GO!");
