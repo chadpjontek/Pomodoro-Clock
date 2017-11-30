@@ -1,13 +1,13 @@
 // vars
 var seconds = 0;
-var timerTime = 5;
-var breakTime = 2;
+var timerTime = 7;
+var breakTime = 4;
 var interval;
 var isBreak = false;
 var pomodoros = 0;
 var pomodoroNumber = 4;
 var checksHtml = "";
-var longBreakTime = 5;
+var longBreakTime = 8;
 var isLongBreak = false;
 // timer
 function timer() {
@@ -16,7 +16,7 @@ function timer() {
     $('h2').text("GO!");
     seconds = timerTime;
     $("#tomato").replaceWith($("#tomato").clone(true));
-   $("#tomato").css({"animation-name": "animate", "animation-fill-mode": "backwards","animation-duration": timerTime + "s", "animation-play-state": "running"});
+   $("#tomato").css({"animation-timing-function": "linear", "animation-name": "animate", "animation-fill-mode": "backwards","animation-duration": timerTime + "s", "animation-play-state": "running"});
     start();
   } else if ($("#timer").text() === "resume") {
     $('h2').text("GO!");
@@ -38,13 +38,13 @@ function breakTimer() {
     isLongBreak = true;
     seconds = longBreakTime;
     $("#tomato").replaceWith($("#tomato").clone(true));
-    $("#tomato").css({"animation-name": "animate", "animation-fill-mode": "backwards", "animation-duration": longBreakTime + "s", "animation-play-state": "running"});
+    $("#tomato").css({"animation-timing-function": "linear", "animation-name": "animate", "animation-fill-mode": "backwards", "animation-duration": longBreakTime + "s", "animation-play-state": "running"});
     start();
   } else {
     isBreak = true;
     seconds = breakTime;
     $("#tomato").replaceWith($("#tomato").clone(true));
-    $("#tomato").css({"animation-name": "animate", "animation-fill-mode": "backwards", "animation-duration": breakTime + "s", "animation-play-state": "running"});
+    $("#tomato").css({"animation-timing-function": "linear", "animation-name": "animate", "animation-fill-mode": "backwards", "animation-duration": breakTime + "s", "animation-play-state": "running"});
     start();
   }
 }
@@ -53,12 +53,13 @@ function countDown() {
   seconds--;
   $("h1").text(seconds);
   if (seconds === 0) {
+    $('#ding').get(0).play();
     clearInterval(interval);
     if (isBreak) {
       seconds = timerTime;
       isBreak = false;
       $("#tomato").replaceWith($("#tomato").clone(true));
-      $("#tomato").css({"animation-duration": timerTime + "s", "animation-play-state": "running"});
+      $("#tomato").css({"animation-timing-function": "linear", "animation-duration": timerTime + "s", "animation-play-state": "running"});
       start();
     } else if (isLongBreak) {
       seconds = timerTime;
@@ -67,15 +68,16 @@ function countDown() {
       checksHtml = "";
       $("#checks").html(checksHtml);
       $("#tomato").replaceWith($("#tomato").clone(true));
-      $("#tomato").css({"animation-duration": timerTime + "s", "animation-play-state": "running"});
+      $("#tomato").css({"animation-timing-function": "linear", "animation-duration": timerTime + "s", "animation-play-state": "running"});
       start();
     } else {
       breakTimer();
     }
   }
 }
-// start
+// start the timer
 function start() {
+  $('#tick').get(0).play();
   if(isBreak){
     $('h2').text("Break time");
   } else if (isLongBreak) {
@@ -86,14 +88,24 @@ function start() {
   $("#timer").text("pause");
   interval = setInterval("countDown()", 1000);
 }
+// pause the timer
 function pause() {
+  $('#tick').get(0).pause();
   $('h2').text("Paused...");
   $("#timer").text("resume");
   clearInterval(interval);
 }
+// reset the timer (wind it up!)
 function reset() {
+  $('#tick').get(0).pause();
+  $('#wind').get(0).play();
+  $("#tomato").replaceWith($("#tomato").clone(true));
+  $("#tomato").css({"animation-timing-function": "cubic-bezier(0.39, 0.23, 0.43, 0.96)", "animation-name": "wind", "animation-duration": 1.4 + "s", "animation-play-state": "running"});
   $('h2').text("");
   $("#timer").text("start");
+  setTimeout(function(){
+    $("#tomato").css("animation-play-state", "paused");
+  }, 1400);
   clearInterval(interval);
   seconds = timerTime;
   $("h1").text(seconds);
@@ -103,6 +115,7 @@ function reset() {
   checksHtml = "";
   $("#checks").html(checksHtml);
 }
+// settings
 function increaseTimer() {
   timerTime++;
   $("#time").text(timerTime);
