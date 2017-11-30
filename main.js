@@ -15,12 +15,15 @@ function timer() {
   if ($("#timer").text() === "start") {
     $('h2').text("GO!");
     seconds = timerTime;
-   
+    $("#tomato").replaceWith($("#tomato").clone(true));
+   $("#tomato").css({"animation-name": "animate", "animation-fill-mode": "backwards","animation-duration": timerTime + "s", "animation-play-state": "running"});
     start();
   } else if ($("#timer").text() === "resume") {
     $('h2').text("GO!");
+    $("#tomato").css("animation-play-state", "running");
     start();
   } else {
+    $("#tomato").css("animation-play-state", "paused");
     pause();
   }
 }
@@ -34,10 +37,14 @@ function breakTimer() {
   if(pomodoros === pomodoroNumber){
     isLongBreak = true;
     seconds = longBreakTime;
+    $("#tomato").replaceWith($("#tomato").clone(true));
+    $("#tomato").css({"animation-name": "animate", "animation-fill-mode": "backwards", "animation-duration": longBreakTime + "s", "animation-play-state": "running"});
     start();
   } else {
     isBreak = true;
     seconds = breakTime;
+    $("#tomato").replaceWith($("#tomato").clone(true));
+    $("#tomato").css({"animation-name": "animate", "animation-fill-mode": "backwards", "animation-duration": breakTime + "s", "animation-play-state": "running"});
     start();
   }
 }
@@ -50,6 +57,8 @@ function countDown() {
     if (isBreak) {
       seconds = timerTime;
       isBreak = false;
+      $("#tomato").replaceWith($("#tomato").clone(true));
+      $("#tomato").css({"animation-duration": timerTime + "s", "animation-play-state": "running"});
       start();
     } else if (isLongBreak) {
       seconds = timerTime;
@@ -57,6 +66,8 @@ function countDown() {
       pomodoros = 0;
       checksHtml = "";
       $("#checks").html(checksHtml);
+      $("#tomato").replaceWith($("#tomato").clone(true));
+      $("#tomato").css({"animation-duration": timerTime + "s", "animation-play-state": "running"});
       start();
     } else {
       breakTimer();
@@ -66,11 +77,11 @@ function countDown() {
 // start
 function start() {
   if(isBreak){
-    $('h2').text("Break time!");
+    $('h2').text("Break time");
   } else if (isLongBreak) {
-    $('h2').text("Take a long break!")
+    $('h2').text("Take a long break")
   } else{
-    $('h2').text("Go!");
+    $('h2').text("Time to work");
   }
   $("#timer").text("pause");
   interval = setInterval("countDown()", 1000);
