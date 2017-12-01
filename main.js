@@ -9,6 +9,24 @@ var pomodoroNumber = 4;
 var checksHtml = "";
 var longBreakTime = 8;
 var isLongBreak = false;
+var sounds = {
+  wind: {
+    sound: new Howl({
+      src: ['sounds/wind.mp3']
+    })
+  },
+  tick: {
+    sound: new Howl({
+      src: ['sounds/tick.mp3'],
+      loop: true
+    })
+  },
+  ding: {
+    sound: new Howl({
+      src: ['sounds/ding.mp3']
+    })
+  }
+};
 // timer
 function timer() {
   isBreak = false;
@@ -53,8 +71,8 @@ function countDown() {
   seconds--;
   $("h1").text(seconds);
   if (seconds === 0) {
-    $('#tick').get(0).pause();
-    $('#ding').get(0).play();
+    sounds['tick'].sound.pause();
+    sounds['ding'].sound.play();
     clearInterval(interval);
     if (isBreak) {
       seconds = timerTime;
@@ -78,7 +96,7 @@ function countDown() {
 }
 // start the timer
 function start() {
-  $('#tick').get(0).play();
+  sounds['tick'].sound.play();
   if(isBreak){
     $('h2').text("Break time");
   } else if (isLongBreak) {
@@ -91,15 +109,15 @@ function start() {
 }
 // pause the timer
 function pause() {
-  $('#tick').get(0).pause();
+  sounds['tick'].sound.pause();
   $('h2').text("Paused...");
   $("#timer").text("resume");
   clearInterval(interval);
 }
 // reset the timer (wind it up!)
 function reset() {
-  $('#tick').get(0).pause();
-  $('#wind').get(0).play();
+  sounds['tick'].sound.pause();
+  sounds['wind'].sound.play();
   $("#tomato").replaceWith($("#tomato").clone(true));
   $("#tomato").css({"animation-timing-function": "cubic-bezier(0.39, 0.23, 0.43, 0.96)", "animation-name": "wind", "animation-duration": 1.4 + "s", "animation-play-state": "running"});
   $('h2').text("Pomodoro Clock");
@@ -150,4 +168,7 @@ function increasePomodoros() {
 function decreasePomodoros() {
   pomodoroNumber--;
   $("#pomodoros").text(pomodoroNumber);
+}
+function playSound(id) {
+  sounds[id].sound.play();
 }
