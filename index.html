@@ -6,17 +6,96 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- Bootstrap CSS -->
+  <!-- CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
     crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Josefin+Sans" rel="stylesheet">
   <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
 </head>
 
 <body>
+  <div class="pos-f-t">
+    <div class="collapse" id="navbarToggleExternalContent">
+      <div class="bg-dark text-light p-4">
+        <div class="row d-flex justify-content-center timer">
+          <div class="col-3 my-1 text-right">
+            <button id="decreaseTimer" class="btn btn-danger" onclick="decreaseTimer()">-</button>
+          </div>
+          <div class="col-3 my-1 text-right">
+            <div class="mx-2">Timer: </div>
+          </div>
+          <div class="col-3 my-1 text-left">
+            <div id="time" class="mx-2">25 </div>
+          </div>
+          <div class="col-3 my-1 text-left">
+            <button id="increaseTimer" class="btn btn-success" onclick="increaseTimer()">+</button>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center short">
+          <div class="col-3 my-1 text-right">
+            <button id="decreaseBreak" class="btn btn-danger" onclick="decreaseBreak()">-</button>
+          </div>
+          <div class="col-3 my-1 text-right">
+            <div class="mx-2">Break: </div>
+          </div>
+          <div class="col-3 my-1 text-left">
+            <div id="breakTime" class="mx-2">5 </div>
+          </div>
+          <div class="col-3 my-1 text-left">
+            <button id="increaseBreak" class="btn btn-success" onclick="increaseBreak()">+</button>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center long">
+          <div class="col-3 my-1 text-right">
+            <button id="decreaseLongBreak" class="btn btn-danger" onclick="decreaseLongBreak()">-</button>
+          </div>
+          <div class="col-3 my-1 text-right">
+            <div class="mx-2">Long Break: </div>
+          </div>
+          <div class="col-3 my-1 text-left">
+            <div id="longBreakTime" class="mx-2">30 </div>
+          </div>
+          <div class="col-3 my-1 text-left">
+            <button id="increaseLongBreak" class="btn btn-success" onclick="increaseLongBreak()">+</button>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center pomo">
+          <div class="col-3 my-1 text-right">
+            <button id="decreasePomodoros" class="btn btn-danger" onclick="decreasePomodoros()">-</button>
+          </div>
+          <div class="col-3 my-1 text-right">
+            <div class="mx-2">Pomodoros: </div>
+          </div>
+          <div class="col-3 my-1 text-left">
+            <div id="pomodoros" class="mx-2">4 </div>
+          </div>
+          <div class="col-3 my-1 text-left">
+            <button id="increasePomodoros" class="btn btn-success" onclick="increasePomodoros()">+</button>
+          </div>
+        </div>
+        <div class="row mt-2 d-flex justify-content-center">
+          <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" data-placement="bottom" data-content="The Pomodoro Technique is a time management method developed by Francesco Cirillo in the late 1980s. The technique uses a timer to break down work into intervals, traditionally 25 minutes in length, separated by short breaks. These intervals are named pomodoros, the plural in English of the Italian word pomodoro (tomato), after the tomato-shaped kitchen timer that Cirillo used as a university student.
+            The technique has been widely popularized by dozens of apps and websites providing timers and instructions.">What is a Pomodoro Clock?</button>
+        </div>
+      </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+  </div>
   <div class="container">
-    <div class="row d-flex mt-4 justify-content-center message">
-      <h2>Pomodoro Clock</h2>
+    <div class="animated fadeInDown row d-flex mt-4 justify-content-center message">
+      <h1 id="message">Pomodoro Clock</h1>
+    </div>
+    <div class="arrow animated fadeInDown row d-flex justify-content-center">
+      <h1>
+        <i class="fa fa-caret-down" aria-hidden="true"></i>
+      </h1>
     </div>
     <div class="row d-flex justify-content-center" id="tomato" onclick="timer()">
       <span id="pointer"></span>
@@ -41,40 +120,15 @@
         <span id="bl-seed3"></span>
       </span>
     </div>
-    <div class="row d-flex justify-content-center mt-3">
-      <button id="timer" class="btn btn-success mx-3" onclick="timer()">start</button>
-      <h1>7</h1>
-      <button id="reset" class="btn btn-danger mx-3" onclick="reset()">reset</button>
+    <div class="row d-flex justify-content-center mt-4">
+      <button id="timer" class="btn btn-success" onclick="timer()" style="display: none;">start</button>
+      <button id="reset" class="btn btn-danger" onclick="reset()">reset</button>
     </div>
-    <div class="row d-flex justify-content-center checks">
+    <div class="row d-flex justify-content-center checks mt-3">
       <h3 id="checks"></h3>
     </div>
-    <div class="row d-flex justify-content-center timer">
-      <div class="mx-2">Timer </div>
-      <button id="decreaseTimer" class="btn btn-danger" onclick="decreaseTimer()">-</button>
-      <button id="increaseTimer" class="btn btn-success" onclick="increaseTimer()">+</button>
-      <div id="time" class="mx-2">7 </div>
-    </div>
-    <div class="row d-flex justify-content-center short">
-      <div class="mx-2">Break </div>
-      <button id="decreaseBreak" class="btn btn-danger" onclick="decreaseBreak()">-</button>
-      <button id="increaseBreak" class="btn btn-success" onclick="increaseBreak()">+</button>
-      <div id="breakTime" class="mx-2">4 </div>
-    </div>
-    <div class="row d-flex justify-content-center long">
-      <div class="mx-2">Long Break </div>
-      <button id="decreaseLongBreak" class="btn btn-danger" onclick="decreaseLongBreak()">-</button>
-      <button id="increaseLongBreak" class="btn btn-success" onclick="increaseLongBreak()">+</button>
-      <div id="longBreakTime" class="mx-2">8 </div>
-    </div>
-    <div class="row d-flex justify-content-center pomo">
-      <div class="mx-2">Pomodoros </div>
-      <button id="decreasePomodoros" class="btn btn-danger" onclick="decreasePomodoros()">-</button>
-      <button id="increasePomodoros" class="btn btn-success" onclick="increasePomodoros()">+</button>
-      <div id="pomodoros" class="mx-2">4 </div>
-    </div>
   </div>
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <!-- scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.5/howler.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>

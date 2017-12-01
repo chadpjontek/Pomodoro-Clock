@@ -1,13 +1,13 @@
 // vars
 var seconds = 0;
-var timerTime = 7;
-var breakTime = 4;
+var timerTime = 25;
+var breakTime = 5;
 var interval;
 var isBreak = false;
 var pomodoros = 0;
 var pomodoroNumber = 4;
 var checksHtml = "";
-var longBreakTime = 8;
+var longBreakTime = 30;
 var isLongBreak = false;
 var sounds = {
   wind: {
@@ -27,17 +27,19 @@ var sounds = {
     })
   }
 };
-// timer
+// enable popover for 'what is?'
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+// timers
 function timer() {
   isBreak = false;
   if ($("#timer").text() === "start") {
-    $('h2').text("GO!");
-    seconds = timerTime;
+    seconds = timerTime * 60;
     $("#tomato").replaceWith($("#tomato").clone(true));
-   $("#tomato").css({"animation-timing-function": "linear", "animation-name": "animate", "animation-fill-mode": "backwards","animation-duration": timerTime + "s", "animation-play-state": "running"});
+    $("#tomato").css({ "animation-timing-function": "linear", "animation-name": "animate", "animation-fill-mode": "backwards", "animation-duration": timerTime * 60 + "s", "animation-play-state": "running" });
     start();
   } else if ($("#timer").text() === "resume") {
-    $('h2').text("GO!");
     $("#tomato").css("animation-play-state", "running");
     start();
   } else {
@@ -48,46 +50,45 @@ function timer() {
 function breakTimer() {
   checksHtml = "";
   pomodoros++;
-  for(var i = 0; i < pomodoros; i++){
+  for (var i = 0; i < pomodoros; i++) {
     checksHtml += '<i class="fa fa-check" aria-hidden="true"></i>';
   }
   $("#checks").html(checksHtml);
-  if(pomodoros === pomodoroNumber){
+  if (pomodoros === pomodoroNumber) {
     isLongBreak = true;
-    seconds = longBreakTime;
+    seconds = longBreakTime * 60;
     $("#tomato").replaceWith($("#tomato").clone(true));
-    $("#tomato").css({"animation-timing-function": "linear", "animation-name": "animate", "animation-fill-mode": "backwards", "animation-duration": longBreakTime + "s", "animation-play-state": "running"});
+    $("#tomato").css({ "animation-timing-function": "linear", "animation-name": "animate", "animation-fill-mode": "backwards", "animation-duration": longBreakTime * 60 + "s", "animation-play-state": "running" });
     start();
   } else {
     isBreak = true;
-    seconds = breakTime;
+    seconds = breakTime * 60;
     $("#tomato").replaceWith($("#tomato").clone(true));
-    $("#tomato").css({"animation-timing-function": "linear", "animation-name": "animate", "animation-fill-mode": "backwards", "animation-duration": breakTime + "s", "animation-play-state": "running"});
+    $("#tomato").css({ "animation-timing-function": "linear", "animation-name": "animate", "animation-fill-mode": "backwards", "animation-duration": breakTime * 60 + "s", "animation-play-state": "running" });
     start();
   }
 }
 // countdown
 function countDown() {
   seconds--;
-  $("h1").text(seconds);
   if (seconds === 0) {
     sounds['tick'].sound.pause();
     sounds['ding'].sound.play();
     clearInterval(interval);
     if (isBreak) {
-      seconds = timerTime;
+      seconds = timerTime * 60;
       isBreak = false;
       $("#tomato").replaceWith($("#tomato").clone(true));
-      $("#tomato").css({"animation-timing-function": "linear", "animation-duration": timerTime + "s", "animation-play-state": "running"});
+      $("#tomato").css({ "animation-timing-function": "linear", "animation-duration": timerTime * 60 + "s", "animation-play-state": "running" });
       start();
     } else if (isLongBreak) {
-      seconds = timerTime;
+      seconds = timerTime * 60;
       isLongBreak = false;
       pomodoros = 0;
       checksHtml = "";
       $("#checks").html(checksHtml);
       $("#tomato").replaceWith($("#tomato").clone(true));
-      $("#tomato").css({"animation-timing-function": "linear", "animation-duration": timerTime + "s", "animation-play-state": "running"});
+      $("#tomato").css({ "animation-timing-function": "linear", "animation-duration": timerTime * 60 + "s", "animation-play-state": "running" });
       start();
     } else {
       breakTimer();
@@ -97,12 +98,12 @@ function countDown() {
 // start the timer
 function start() {
   sounds['tick'].sound.play();
-  if(isBreak){
-    $('h2').text("Break time");
+  if (isBreak) {
+    $('#message').text("Break time");
   } else if (isLongBreak) {
-    $('h2').text("Take a long break")
-  } else{
-    $('h2').text("Time to work");
+    $('#message').text("Take a long break")
+  } else {
+    $('#message').text("Time to work");
   }
   $("#timer").text("pause");
   interval = setInterval("countDown()", 1000);
@@ -110,7 +111,7 @@ function start() {
 // pause the timer
 function pause() {
   sounds['tick'].sound.pause();
-  $('h2').text("Paused...");
+  $('#message').text("Paused...");
   $("#timer").text("resume");
   clearInterval(interval);
 }
@@ -119,15 +120,14 @@ function reset() {
   sounds['tick'].sound.pause();
   sounds['wind'].sound.play();
   $("#tomato").replaceWith($("#tomato").clone(true));
-  $("#tomato").css({"animation-timing-function": "cubic-bezier(0.39, 0.23, 0.43, 0.96)", "animation-name": "wind", "animation-duration": 1.4 + "s", "animation-play-state": "running"});
-  $('h2').text("Pomodoro Clock");
+  $("#tomato").css({ "animation-timing-function": "cubic-bezier(0.39, 0.23, 0.43, 0.96)", "animation-name": "wind", "animation-duration": 1.4 + "s", "animation-play-state": "running" });
+  $('#message').text("Pomodoro Clock");
   $("#timer").text("start");
-  setTimeout(function(){
+  setTimeout(function () {
     $("#tomato").css("animation-play-state", "paused");
   }, 1400);
   clearInterval(interval);
-  seconds = timerTime;
-  $("h1").text(seconds);
+  seconds = timerTime * 60;
   pomodoros = 0;
   isBreak = false;
   isLongBreak = false;
@@ -136,39 +136,66 @@ function reset() {
 }
 // settings
 function increaseTimer() {
-  timerTime++;
-  $("#time").text(timerTime);
-  $("h1").text(timerTime);
+  if (timerTime < 1440) {
+    timerTime++;
+    $("#time").text(timerTime);
+  } else {
+    $('#message').text("Maxium time reached");
+  }
 }
 function decreaseTimer() {
-  timerTime--;
-  $("#time").text(timerTime);
-  $("h1").text(timerTime);
+  if (timerTime > 1) {
+    timerTime--;
+    $("#time").text(timerTime);
+  } else {
+    $('#message').text("Minimum time reached");
+  }
 }
 function increaseBreak() {
-  breakTime++;
-  $("#breakTime").text(breakTime);
+  if (breakTime < 1440) {
+    breakTime++;
+    $("#breakTime").text(breakTime);
+  } else {
+    $('#message').text("Maxium time reached");
+  }
 }
 function decreaseBreak() {
-  breakTime--;
-  $("#breakTime").text(breakTime);
+  if (breakTime > 1) {
+    breakTime--;
+    $("#breakTime").text(breakTime);
+  } else {
+    $('#message').text("Minimum time reached");
+  }
 }
 function increaseLongBreak() {
-  longBreakTime++;
-  $("#longBreakTime").text(longBreakTime);
+  if (longBreakTime < 1440) {
+    longBreakTime++;
+    $("#longBreakTime").text(longBreakTime);
+  } else {
+    $('#message').text("Maxium time reached");
+  }
 }
 function decreaseLongBreak() {
-  longBreakTime--;
-  $("#longBreakTime").text(longBreakTime);
+  if (longBreakTime > 1) {
+    longBreakTime--;
+    $("#longBreakTime").text(longBreakTime);
+  } else {
+    $('#message').text("Minimum time reached");
+  }
 }
 function increasePomodoros() {
-  pomodoroNumber++;
-  $("#pomodoros").text(pomodoroNumber);
+  if (pomodoroNumber < 10) {
+    pomodoroNumber++;
+    $("#pomodoros").text(pomodoroNumber);
+  } else {
+    $('#message').text("Maxium pomodoros");
+  }
 }
 function decreasePomodoros() {
-  pomodoroNumber--;
-  $("#pomodoros").text(pomodoroNumber);
-}
-function playSound(id) {
-  sounds[id].sound.play();
+  if (pomodoroNumber > 1) {
+    pomodoroNumber--;
+    $("#pomodoros").text(pomodoroNumber);
+  } else {
+    $('#message').text("Minimum pomodoros");
+  }
 }

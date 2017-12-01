@@ -1,3 +1,18 @@
+h1 {
+  font-family: 'Amatic SC', cursive;
+  font-weight: 900;
+}
+h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 900;
+}
+.arrow {
+  margin-bottom: -35px;
+}
+.btn-danger {
+  background: #b51821;
+  border: solid #b51821;
+}
 #tomato {
   margin: 15px auto;
   transform: translate(-50%, -50%);
@@ -26,7 +41,6 @@
 }
 #pointer {
   content: '';
-  position: absolute;
   width: 0; 
   height: 0; 
   border-left: 10px solid transparent;
