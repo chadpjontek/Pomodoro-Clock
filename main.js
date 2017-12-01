@@ -53,6 +53,7 @@ function countDown() {
   seconds--;
   $("h1").text(seconds);
   if (seconds === 0) {
+    $('#tick').get(0).pause();
     $('#ding').get(0).play();
     clearInterval(interval);
     if (isBreak) {
